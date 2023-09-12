@@ -26,7 +26,8 @@ class DailyBoxOfficeCrawler:
             box_office_results = data["boxOfficeResult"]["dailyBoxOfficeList"]
             return box_office_results
 
-    def validate_values(self, multi_movie_yn, rep_nation_cd):
+    @staticmethod
+    def validate_values(multi_movie_yn, rep_nation_cd):
         valid_y_n_values = ["Y", "N", None]
         valid_k_f_values = ["K", "F", None]
 
