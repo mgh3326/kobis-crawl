@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-from models.DailyBoxOffice import DailyBoxOffice
 
 
 class Kobis:
