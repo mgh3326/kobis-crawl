@@ -57,3 +57,29 @@ class DailyBoxOffice:
 
     def movie_code(self):
         return self.movieCd
+
+    def day_audience(self):
+        return self.audiCnt
+
+    def cumulative_audience(self):
+        return self.audiAcc
+
+    def day_revenue(self):
+        return self.salesAmt
+
+    def cumulative_revenue(self):
+        return self.salesAcc
+
+    def release_date(self):
+        return self.openDt
+
+    def to_dict(self):
+        return {
+            "rank": self.rank,
+            "title": self.title(),
+            "day_audience": self.day_audience(),
+            "cumulative_audience": self.cumulative_audience(),
+            "day_revenue": self.day_revenue(),
+            "cumulative_revenue": self.cumulative_revenue(),
+            "release_date": self.release_date(),
+        }

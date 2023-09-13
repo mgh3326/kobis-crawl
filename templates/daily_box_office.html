@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .entry-content {
+            margin-top: 1em;
+        }
+
+        .entry-content h3 {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .entry-content .table-responsive {
+            overflow: auto;
+        }
+
+        .table-responsive table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-responsive th, .table-responsive td {
+            width: 14.2857%;
+            min-width: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .table-responsive th {
+            background-color: #2780d4;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="entry-content">
+    <h3>2023년 9월 12일 영화 순위</h3>
+    <div class="table-responsive">
+        <table>
+            <thead>
+            <tr>
+                <th>순위</th>
+                <th>제목</th>
+                <th>당일관객</th>
+                <th>누적관객</th>
+                <th>당일매출</th>
+                <th>누적매출</th>
+                <th>개봉일</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for movie in movies %}
+                <tr>
+                    <td>{{ movie.rank }}</td>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.day_audience }}</td>
+                    <td>{{ movie.cumulative_audience }}</td>
+                    <td>{{ movie.day_revenue }}</td>
+                    <td>{{ movie.cumulative_revenue }}</td>
+                    <td>{{ movie.release_date }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
