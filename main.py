@@ -17,7 +17,7 @@ def post_daily_box_office(date, multiMovieYn=None, repNationCd=None):
     )
     template = e.get_template("daily_box_office.html")
     movies = [obj.to_dict() for obj in daily_box_office_list]  # 각 객체를 딕셔너리로 변환
-    content = template.render(movies=movies)
+    content = template.render(movies=movies, date=date.strftime("%Y년 %m월 %d일"))
     category_id = "1141907"
     if multiMovieYn == "Y":
         multi_movie_type = "다양성"
@@ -72,7 +72,7 @@ post_daily_box_office(yesterday_date, None, "K")
 post_daily_box_office(yesterday_date, None, "F")
 post_daily_box_office(yesterday_date, "Y")
 post_daily_box_office(yesterday_date, "Y", "K")
-post_daily_box_office(yesterday_date, "Y", "K")
+post_daily_box_office(yesterday_date, "Y", "F")
 post_daily_box_office(yesterday_date, "N")
 post_daily_box_office(yesterday_date, "N", "K")
 post_daily_box_office(yesterday_date, "N", "F")
