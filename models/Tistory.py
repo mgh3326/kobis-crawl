@@ -66,9 +66,12 @@ class Tistory:
             f"https://www.tistory.com/apis/post/attach?access_token={Tistory.TISTORY_ACCESS_TOKEN}&output=json&blogName={blog_name}",
             files={"uploadedfile": file},
         )
-        response_data = json.loads(response.text)
-        print(response.text)
-        if response_data["tistory"]["status"] == "200":
-            return response_data["tistory"]["url"]
+        if response.status_code == 200:
+            response_data = json.loads(response.text)
+            print(response.text)
+            if response_data["tistory"]["status"] == "200":
+                return response_data["tistory"]["url"]
+            else:
+                return None
         else:
-            return None
+            print(response.text)

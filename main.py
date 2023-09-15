@@ -50,6 +50,7 @@ def post_daily_box_office(date, multiMovieYn=None, repNationCd=None):
         f"박스 오피스,박스오피스, 영화 순위, 영화, {date.strftime('%Y년 %m월 %d일')} 영화 순위,"
         + ",".join(titles),
         slogan,
+        0,
     )
 
 
@@ -65,6 +66,7 @@ def post_daily_box_office(date, multiMovieYn=None, repNationCd=None):
 # access_token = Tistory.access_token()
 # Tistory.blog_info()
 # Tistory.category_list("mgh3326")
+
 current_date = datetime.date.today()
 yesterday_date = current_date - datetime.timedelta(days=1)
 post_daily_box_office(yesterday_date)
