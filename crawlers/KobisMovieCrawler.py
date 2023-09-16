@@ -1,5 +1,3 @@
-import json
-
 import requests
 from bs4 import BeautifulSoup
 
@@ -14,20 +12,13 @@ class KobisMovieCrawler:
         self.movie_code = movie_code
 
     def run(self):
-        response = self._get_response_from_api()
-        if response is not None and response.status_code == 200:
-            soup = BeautifulSoup(response.text, "html.parser")
-            dom = etree.HTML(str(soup))
-            movie_href = dom.xpath('//*[@id="contents"]/div/div[1]/a/@href')
-            if len(movie_href) == 0:
-                print(f"No thumbnail url found movie_code = {self.movie_code}")
-                return {"thumbnail_url": None}
-            else:
-                result = movie_href[0]
-            image_url = f"{KobisMovieCrawler.KOBIS_URL}/{result}"
-            return {"thumbnail_url": image_url}
+        response = self._get_response_from_page()
+        if response:
+            return self._extract_thumbnail_url(response)
+        print(f"Failed to get response for movie_code = {self.movie_code}")
+        return None
 
-    def _get_response_from_api(self):
+    def _get_response_from_page(self):
         params = {
             "movieCd": self.movie_code,
         }
@@ -48,9 +39,21 @@ class KobisMovieCrawler:
         }
         try:
             response = requests.get(
-                KobisMovieCrawler.KOBIS_MOVIE_DETAIL_URL, params=params, headers=headers
+                self.KOBIS_MOVIE_DETAIL_URL, params=params, headers=headers
             )
         except requests.RequestException as e:
             print("Exception occurred while making a request to the API: ", e)
             return None
         return response
+
+    @staticmethod
+    def _extract_thumbnail_url(response):
+        if response.status_code != 200:
+            return {"thumbnail_url": None}
+        soup = BeautifulSoup(response.text, "html.parser")
+        dom = etree.HTML(str(soup))
+        movie_href = dom.xpath('//*[@id="contents"]/div/div[1]/a/@href')
+        if movie_href:
+            image_url = f"{KobisMovieCrawler.KOBIS_URL}/{movie_href[0]}"
+            return {"thumbnail_url": image_url}
+        return {"thumbnail_url": None}
